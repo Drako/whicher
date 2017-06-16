@@ -14,6 +14,8 @@
 
 package guru.drako.which
 
+import java.io.File
+import java.nio.file.Path
 import java.nio.file.Paths
 
 /**
@@ -27,7 +29,7 @@ class WindowsResolver: SystemResolver {
      * @param path A string in the format of the PATH environment variable.
      * @return An array of path strings.
      */
-    override fun splitPath(path: String) = path.split(';').toTypedArray()
+    override fun splitPath(path: String) = path.split(';').map { Paths.get(it) }.toTypedArray()
 
     /**
      * Concatenate <code>dir</code> and <code>file</code> and resolve them to an absolute path.
@@ -39,13 +41,13 @@ class WindowsResolver: SystemResolver {
      *
      * @todo This should return more than one path (e.g. for foo it should return foo.exe, foo.bat etc.)
      */
-    override fun resolve(dir: String, file: String) = listOf(Paths.get(dir).resolve(file).toAbsolutePath().toString())
+    override fun resolve(dir: Path, file: Path) = listOf(dir.resolve(file).toAbsolutePath())
 
     /**
-     * Check if the given filename is executable.
+     * Check if the given file is executable.
      *
-     * @param filename The absolute path to a file.
+     * @param file The file to check.
      * @return <code>true</code> if the file exists and is executable. <code>false</code> otherwise.
      */
-    override fun canExecute(filename: String) = Paths.get(filename).toFile().canExecute()
+    override fun canExecute(file: File) = file.canExecute()
 }
