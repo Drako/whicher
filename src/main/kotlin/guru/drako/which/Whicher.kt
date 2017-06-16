@@ -44,21 +44,21 @@ class Whicher(val path: Array<Path>, val resolver: SystemResolver) {
     fun which(program: Path) = path.flatMap {
         resolver.resolve(it, program)
     }.find {
-        resolver.canExecute(it.toFile())
+        resolver.canExecute(it)
     }
     fun which(program: String) = which(Paths.get(program))
 
     fun allWhiches(program: Path) = path.flatMap {
         resolver.resolve(it, program)
     }.filter {
-        resolver.canExecute(it.toFile())
+        resolver.canExecute(it)
     }.toTypedArray()
     fun allWhiches(program: String) = allWhiches(Paths.get(program))
 
     fun silentWhich(program: Path) = path.flatMap {
         resolver.resolve(it, program)
     }.any {
-        resolver.canExecute(it.toFile())
+        resolver.canExecute(it)
     }
     fun silentWhich(program: String) = silentWhich(Paths.get(program))
 }

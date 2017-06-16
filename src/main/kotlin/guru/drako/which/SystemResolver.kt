@@ -14,7 +14,6 @@
 
 package guru.drako.which
 
-import java.io.File
 import java.nio.file.Path
 
 /**
@@ -45,5 +44,5 @@ interface SystemResolver {
      * @param file The file to check.
      * @return <code>true</code> if the file exists and is executable. <code>false</code> otherwise.
      */
-    fun canExecute(file: File): Boolean
+    fun canExecute(file: Path): Boolean
 }

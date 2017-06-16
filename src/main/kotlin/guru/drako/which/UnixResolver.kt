@@ -14,7 +14,7 @@
 
 package guru.drako.which
 
-import java.io.File
+import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 
@@ -47,5 +47,5 @@ class UnixResolver: SystemResolver {
      * @param file The file to check.
      * @return <code>true</code> if the file exists and is executable. <code>false</code> otherwise.
      */
-    override fun canExecute(file: File) = file.canExecute()
+    override fun canExecute(file: Path) = Files.isExecutable(file)
 }
