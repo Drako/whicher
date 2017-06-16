@@ -14,7 +14,10 @@
 
 package guru.drako.which
 
-class Whicher(val path: Array<String>, val resolver: SystemResolver) {
+import java.nio.file.Path
+import java.nio.file.Paths
+
+class Whicher(val path: Array<Path>, val resolver: SystemResolver) {
     companion object {
         val systemResolver: SystemResolver =
             if (System.getProperty("os.name").contains("windows", true))
@@ -24,28 +27,38 @@ class Whicher(val path: Array<String>, val resolver: SystemResolver) {
 
         private val system = Whicher()
 
+        fun which(program: Path) = system.which(program)
         fun which(program: String) = system.which(program)
+
+        fun allWhiches(program: Path) = system.allWhiches(program)
+        fun allWhiches(program: String) = system.allWhiches(program)
+
+        fun silentWhich(program: Path) = system.silentWhich(program)
+        fun silentWhich(program: String) = system.silentWhich(program)
     }
 
-    constructor(path: Array<String>) : this(path, systemResolver)
+    constructor(path: Array<Path>) : this(path, systemResolver)
     constructor(path: String, resolver: SystemResolver = systemResolver) : this(resolver.splitPath(path), resolver) {}
     constructor(resolver: SystemResolver = systemResolver) : this(System.getenv("PATH"), resolver) {}
 
-    fun which(program: String) = path.flatMap {
+    fun which(program: Path) = path.flatMap {
         resolver.resolve(it, program)
     }.find {
         resolver.canExecute(it)
     }
+    fun which(program: String) = which(Paths.get(program))
 
-    fun allWhiches(program: String) = path.flatMap {
+    fun allWhiches(program: Path) = path.flatMap {
         resolver.resolve(it, program)
     }.filter {
         resolver.canExecute(it)
     }.toTypedArray()
+    fun allWhiches(program: String) = allWhiches(Paths.get(program))
 
-    fun silentWhich(program: String) = path.flatMap {
+    fun silentWhich(program: Path) = path.flatMap {
         resolver.resolve(it, program)
     }.any {
         resolver.canExecute(it)
     }
+    fun silentWhich(program: String) = silentWhich(Paths.get(program))
 }

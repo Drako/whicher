@@ -14,6 +14,8 @@
 
 package guru.drako.which
 
+import java.nio.file.Path
+
 /**
  * Whicher backend with system dependent code.
  */
@@ -24,7 +26,7 @@ interface SystemResolver {
      * @param path A string in the format of the PATH environment variable.
      * @return An array of path strings.
      */
-    fun splitPath(path: String): Array<String>
+    fun splitPath(path: String): Array<Path>
 
     /**
      * Concatenate <code>dir</code> and <code>file</code> and resolve them to an absolute path.
@@ -34,13 +36,13 @@ interface SystemResolver {
      * @param file The name of the file.
      * @return The absolute path to the file including the filename.
      */
-    fun resolve(dir: String, file: String): List<String>
+    fun resolve(dir: Path, file: Path): List<Path>
 
     /**
-     * Check if the given filename is executable.
+     * Check if the given file is executable.
      *
-     * @param filename The absolute path to a file.
+     * @param file The file to check.
      * @return <code>true</code> if the file exists and is executable. <code>false</code> otherwise.
      */
-    fun canExecute(filename: String): Boolean
+    fun canExecute(file: Path): Boolean
 }

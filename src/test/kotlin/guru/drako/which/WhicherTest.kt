@@ -15,6 +15,8 @@
 package guru.drako.which
 
 import org.junit.Test
+import java.nio.file.Path
+import java.nio.file.Paths
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNull
@@ -22,9 +24,9 @@ import kotlin.test.assertTrue
 
 class WhicherTest {
     companion object : SystemResolver {
-        override fun splitPath(path: String) = path.split(':').toTypedArray()
-        override fun resolve(dir: String, file: String) = listOf(dir + "/" + file)
-        override fun canExecute(filename: String) = when (filename) {
+        override fun splitPath(path: String) = path.split(':').map { Paths.get(it) }.toTypedArray()
+        override fun resolve(dir: Path, file: Path) = listOf(dir.resolve(file).toAbsolutePath())
+        override fun canExecute(file: Path) = when (file.toString()) {
             "/usr/local/bin/ffmpeg" -> true
             "/usr/local/bin/gcc" -> true
             "/home/foo/bin/gcc" -> true
@@ -36,21 +38,28 @@ class WhicherTest {
 
     @Test
     fun split() {
-        val expected = arrayOf("/usr/bin", "/usr/local/bin", "/home/foo/bin")
+        val expected = arrayOf(
+            Paths.get("/usr/bin"),
+            Paths.get("/usr/local/bin"),
+            Paths.get("/home/foo/bin")
+        )
         val actual = testWhicher.path
         assertTrue(expected contentEquals actual)
     }
 
     @Test
     fun which() {
-        val expected = "/usr/local/bin/ffmpeg"
+        val expected = Paths.get("/usr/local/bin/ffmpeg")
         val actual = testWhicher.which("ffmpeg")
         assertEquals(expected, actual)
     }
 
     @Test
     fun allWhiches() {
-        val expected = arrayOf("/usr/local/bin/gcc", "/home/foo/bin/gcc")
+        val expected = arrayOf(
+            Paths.get("/usr/local/bin/gcc"),
+            Paths.get("/home/foo/bin/gcc")
+        )
         val actual = testWhicher.allWhiches("gcc")
         assertTrue(expected contentEquals actual)
     }
