@@ -1,0 +1,7 @@
+# idea stuff
+.idea/libraries/
+.idea/inspectionProfiles/
+.idea/workspace.xml
+
+# build results
+target/
