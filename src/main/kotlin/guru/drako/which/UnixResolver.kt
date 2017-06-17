@@ -21,7 +21,7 @@ import java.nio.file.Paths
 /**
  * Whicher backend for non-Windows systems.
  */
-class UnixResolver: SystemResolver {
+internal class UnixResolver: SystemResolver {
     /**
      * Splits the given PATH variable into its parts.
      * Uses the Unix delimiter ":".

@@ -23,7 +23,7 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class WhicherTest {
-    companion object : SystemResolver {
+    object TestResolver : SystemResolver {
         override fun splitPath(path: String) = path.split(':').map { Paths.get(it) }.toTypedArray()
         override fun resolve(dir: Path, file: Path) = listOf(dir.resolve(file).toAbsolutePath())
         override fun canExecute(file: Path) = when (file.toString()) {
@@ -32,8 +32,10 @@ class WhicherTest {
             "/home/foo/bin/gcc" -> true
             else -> false
         }
+    }
 
-        val testWhicher = Whicher("/usr/bin:/usr/local/bin:/home/foo/bin", this)
+    companion object {
+        val testWhicher = Whicher("/usr/bin:/usr/local/bin:/home/foo/bin", TestResolver)
     }
 
     @Test

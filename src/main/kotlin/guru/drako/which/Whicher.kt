@@ -19,13 +19,14 @@ import java.nio.file.Paths
 
 class Whicher(val path: Array<Path>, val resolver: SystemResolver) {
     companion object {
-        val systemResolver: SystemResolver =
-            if (System.getProperty("os.name").contains("windows", true))
+        private val systemResolver: SystemResolver =
+            if (java.lang.System.getProperty("os.name").contains("windows", true))
                 WindowsResolver()
             else
                 UnixResolver()
 
-        private val system = Whicher()
+        @JvmField
+        val system = Whicher()
 
         fun which(program: Path) = system.which(program)
         fun which(program: String) = system.which(program)

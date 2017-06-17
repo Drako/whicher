@@ -21,7 +21,7 @@ import java.nio.file.Paths
 /**
  * Whicher backend for Windows systems.
  */
-class WindowsResolver: SystemResolver {
+internal class WindowsResolver: SystemResolver {
     /**
      * Splits the given PATH variable into its parts.
      * Uses the Windows delimiter ";".
