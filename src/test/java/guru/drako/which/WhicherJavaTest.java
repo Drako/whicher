@@ -14,16 +14,11 @@
 
 package guru.drako.which;
 
-import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class WhicherJavaTest {
     private static final Whicher testWhicher = new Whicher(
