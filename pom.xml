@@ -25,11 +25,30 @@
         <url>https://github.com/Drako/whicher</url>
     </scm>
 
+    <developers>
+        <developer>
+            <name>Felix Bytow</name>
+            <email>drako@drako.guru</email>
+        </developer>
+    </developers>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+    </distributionManagement>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.version>1.1.2-5</kotlin.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <junit.version>4.12</junit.version>
+        <dokka.version>0.9.14</dokka.version>
     </properties>
 
     <dependencies>
@@ -52,6 +71,14 @@
         </dependency>
     </dependencies>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jcenter</id>
+            <name>JCenter</name>
+            <url>https://jcenter.bintray.com/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <build>
         <plugins>
             <plugin>
@@ -68,7 +95,6 @@
                         <configuration>
                             <sourceDirs>
                                 <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
-                                <sourceDir>${project.basedir}/src/main/java</sourceDir>
                             </sourceDirs>
                         </configuration>
                     </execution>
@@ -135,6 +161,29 @@
                             <addClasspath>true</addClasspath>
                         </manifest>
                     </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jetbrains.dokka</groupId>
+                <artifactId>dokka-maven-plugin</artifactId>
+                <version>${dokka.version}</version>
+                <executions>
+                    <execution>
+                        <phase>pre-site</phase>
+                        <goals>
+                            <goal>dokka</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <jdkVersion>8</jdkVersion>
+                    <impliedPlatforms>
+                        <platform>JVM</platform>
+                    </impliedPlatforms>
+                    <sourceDirectories>
+                        <dir>${project.basedir}/src/main/kotlin</dir>
+                    </sourceDirectories>
                 </configuration>
             </plugin>
         </plugins>
