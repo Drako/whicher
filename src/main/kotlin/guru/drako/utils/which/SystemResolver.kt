@@ -34,7 +34,7 @@ interface SystemResolver {
      *
      * @param dir The directory in which the file is located.
      * @param file The name of the file.
-     * @return The absolute path to the file including the filename.
+     * @return The absolute path to the file including the filename as a list. (Can contain multiple files depending on the platform.)
      */
     fun resolve(dir: Path, file: Path): List<Path>
 
