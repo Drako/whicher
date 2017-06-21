@@ -1,5 +1,6 @@
 # Whicher
 
+[![Maven Central](https://img.shields.io/maven-central/v/guru.drako.utils/whicher.svg)](https://repo1.maven.org/maven2/guru/drako/utils/whicher/)
 [![license](https://img.shields.io/github/license/Drako/whicher.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 > which -- locate a program file in the user's path
@@ -8,7 +9,8 @@ This class basically does what the `which` program does.
 
 ## Usage
 
-*Kotlin*:
+### Kotlin
+
 ```kotlin
 import guru.drako.utils.which.Whicher
 
@@ -18,7 +20,8 @@ val location = Whicher.which("foo")
 // which returns a Path?, so null is returned when the executable is not found
 ```
 
-*Java*
+### Java
+
 ```java
 import guru.drako.utils.which.Whicher;
 import java.nio.Path;
@@ -31,6 +34,26 @@ final Path location = Whicher.system.which("foo");
 
 The Whicher does not depend on the `which` program and might do
 some things differently.
+
+## Setup
+
+### Maven
+
+```xml
+<dependency>
+    <groupId>guru.drako.utils</groupId>
+    <artifactId>whicher</artifactId>
+    <version>1.1</version>
+</dependency>
+```
+
+### Gradle
+
+```groovy
+dependencies {
+    compile 'guru.drako.utils:whicher:1.1'
+}
+```
 
 ## Build/Test Status
 
