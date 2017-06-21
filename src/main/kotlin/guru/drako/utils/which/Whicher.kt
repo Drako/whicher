@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package guru.drako.which
+package guru.drako.utils.which
 
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -21,7 +21,7 @@ class Whicher(val path: Array<Path>, val resolver: SystemResolver) {
     companion object {
         private val systemResolver: SystemResolver =
             if (java.lang.System.getProperty("os.name").contains("windows", true))
-                WindowsResolver()
+                guru.drako.which.WindowsResolver()
             else
                 UnixResolver()
 

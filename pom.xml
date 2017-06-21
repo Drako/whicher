@@ -3,12 +3,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>guru.drako.which</groupId>
+    <groupId>guru.drako.utils</groupId>
     <artifactId>whicher</artifactId>
     <version>1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>guru.drako.which whicher</name>
+    <name>Whicher</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
