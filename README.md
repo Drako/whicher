@@ -32,7 +32,7 @@ final Path location = Whicher.system.which("foo");
 The Whicher does not depend on the `which` program and might do
 some things differently.
 
-## Build Status
+## Build/Test Status
 
 Branch | Status
 --- | ---
