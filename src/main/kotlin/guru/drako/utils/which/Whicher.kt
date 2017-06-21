@@ -21,7 +21,7 @@ class Whicher(val path: Array<Path>, val resolver: SystemResolver) {
     companion object {
         private val systemResolver: SystemResolver =
             if (java.lang.System.getProperty("os.name").contains("windows", true))
-                guru.drako.which.WindowsResolver()
+                WindowsResolver()
             else
                 UnixResolver()
 
