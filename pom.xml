@@ -182,8 +182,15 @@
                         <platform>JVM</platform>
                     </impliedPlatforms>
                     <sourceDirectories>
-                        <dir>${project.basedir}/src/main/kotlin</dir>
+                        <dir>src/main/kotlin</dir>
                     </sourceDirectories>
+                    <sourceLinks>
+                        <link>
+                            <dir>${project.basedir}/src/main/kotlin</dir>
+                            <url>https://github.com/Drako/whicher</url>
+                            <urlSuffix>#L</urlSuffix>
+                        </link>
+                    </sourceLinks>
                 </configuration>
             </plugin>
         </plugins>
