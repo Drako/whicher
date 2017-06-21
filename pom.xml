@@ -3,18 +3,52 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>guru.drako.which</groupId>
+    <groupId>guru.drako.utils</groupId>
     <artifactId>whicher</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
 
-    <name>guru.drako.which whicher</name>
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>Locate a program in the user's path</description>
+    <url>https://github.com/Drako/whicher</url>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:https://github.com/Drako/whicher.git</connection>
+        <developerConnection>scm:git:git@github.com:Drako/whicher.git</developerConnection>
+        <url>https://github.com/Drako/whicher</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>Felix Bytow</name>
+            <email>drako@drako.guru</email>
+        </developer>
+    </developers>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+    </distributionManagement>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.version>1.1.2-5</kotlin.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <junit.version>4.12</junit.version>
+        <dokka.version>0.9.14</dokka.version>
     </properties>
 
     <dependencies>
@@ -37,10 +71,15 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <sourceDirectory>src/main/kotlin</sourceDirectory>
-        <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jcenter</id>
+            <name>JCenter</name>
+            <url>https://jcenter.bintray.com/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
@@ -53,6 +92,11 @@
                         <goals>
                             <goal>compile</goal>
                         </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+                            </sourceDirs>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>test-compile</id>
@@ -60,6 +104,12 @@
                         <goals>
                             <goal>test-compile</goal>
                         </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+                                <sourceDir>${project.basedir}/src/test/java</sourceDir>
+                            </sourceDirs>
+                        </configuration>
                     </execution>
                 </executions>
                 <configuration>
@@ -75,6 +125,108 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <phase>none</phase>
+                    </execution>
+                    <execution>
+                        <id>default-testCompile</id>
+                        <phase>none</phase>
+                    </execution>
+                    <execution>
+                        <id>java-compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>java-test-compile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jetbrains.dokka</groupId>
+                <artifactId>dokka-maven-plugin</artifactId>
+                <version>${dokka.version}</version>
+                <executions>
+                    <execution>
+                        <phase>pre-site</phase>
+                        <goals>
+                            <goal>dokka</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>javadocJar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <jdkVersion>8</jdkVersion>
+                    <impliedPlatforms>
+                        <platform>JVM</platform>
+                    </impliedPlatforms>
+                    <sourceDirectories>
+                        <dir>src/main/kotlin</dir>
+                    </sourceDirectories>
+                    <sourceLinks>
+                        <link>
+                            <dir>${project.basedir}/src/main/kotlin</dir>
+                            <url>https://github.com/Drako/whicher</url>
+                            <urlSuffix>#L</urlSuffix>
+                        </link>
+                    </sourceLinks>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

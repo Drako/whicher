@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package guru.drako.which
+package guru.drako.utils.which
 
 import java.nio.file.Files
 import java.nio.file.Path
@@ -21,7 +21,7 @@ import java.nio.file.Paths
 /**
  * Whicher backend for non-Windows systems.
  */
-class UnixResolver: SystemResolver {
+internal class UnixResolver: SystemResolver {
     /**
      * Splits the given PATH variable into its parts.
      * Uses the Unix delimiter ":".

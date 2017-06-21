@@ -5,3 +5,6 @@
 
 # build results
 target/
+
+# mac stuff
+.DS_Store
