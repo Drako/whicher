@@ -1,5 +1,7 @@
 # Whicher
 
+[![license](https://img.shields.io/github/license/Drako/whicher.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
+
 > which -- locate a program file in the user's path
 
 This class basically does what the `which` program does.
@@ -29,3 +31,10 @@ final Path location = Whicher.system.which("foo");
 
 The Whicher does not depend on the `which` program and might do
 some things differently.
+
+## Build Status
+
+Branch | Status
+--- | ---
+develop | [![Build Status](https://travis-ci.org/Drako/whicher.svg?branch=develop)](https://travis-ci.org/Drako/whicher)
+master | [![Build Status](https://travis-ci.org/Drako/whicher.svg?branch=master)](https://travis-ci.org/Drako/whicher)
