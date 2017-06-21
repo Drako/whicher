@@ -80,6 +80,8 @@
     </pluginRepositories>
 
     <build>
+        <sourceDirectory>src/main/kotlin</sourceDirectory>
+
         <plugins>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
@@ -177,6 +179,7 @@
                     </execution>
                     <execution>
                         <id>attach-javadocs</id>
+                        <phase>package</phase>
                         <goals>
                             <goal>javadocJar</goal>
                         </goals>
