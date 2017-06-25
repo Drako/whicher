@@ -14,33 +14,47 @@
 
 package guru.drako.utils.which
 
+import com.github.salomonbrys.kodein.*
 import java.nio.file.Path
 import java.nio.file.Paths
 
 /**
  * Class to locate programs in the user's path.
  *
+ * @property kodein A DI container.
  * @property path An array of paths to search for programs.
  * @property resolver The resolver to use.
  */
-class Whicher(val path: Array<Path>, val resolver: SystemResolver) {
+class Whicher(override val kodein: Kodein) : KodeinAware {
+    val resolver: SystemResolver = instance()
+    val path: Array<Path> = with(kodein).instance("path_arr")
+
     /**
      * Static access to the default Whicher.
      *
      * The default Which uses the default SystemResolver and the PATH environment variable.
      */
     companion object {
-        private val systemResolver: SystemResolver =
-            if (System.getProperty("os.name").contains("windows", true))
-                WindowsResolver()
-            else
-                UnixResolver()
+        internal val kodein = Kodein {
+            bind<SystemResolver>() with singleton {
+                if (System.getProperty("os.name").contains("windows", true))
+                    WindowsResolver()
+                else
+                    UnixResolver()
+            }
+            bind<String>("path_env") with provider { System.getenv("PATH") }
+            bind<Array<Path>>("path_arr") with factory {
+                kodein: Kodein -> kodein
+                    .instance<SystemResolver>()
+                    .splitPath(kodein.provider<String>("path_env")())
+            }
+        }
 
         /**
          * This allows Java to access the default Whicher through the static field Whicher.system.
          */
         @JvmField
-        val system = Whicher()
+        val system = Whicher(kodein)
 
         /**
          * Calls which(program: Path) on the default Whicher instance.
@@ -72,31 +86,6 @@ class Whicher(val path: Array<Path>, val resolver: SystemResolver) {
          */
         fun silentWhich(program: String) = system.silentWhich(program)
     }
-
-    /**
-     * Constructor taking an array of paths that shall be searched for programs.
-     * The default system resolver is used.
-     *
-     * @param path An array of paths to search for programs.
-     */
-    constructor(path: Array<Path>) : this(path, systemResolver)
-
-    /**
-     * Constructor taking a string in the style of the PATH environment variable.
-     * A custom resolver can be specified.
-     *
-     * @param path A string containing multiple paths to search for programs.
-     * @param resolver The resolver to use. Defaults to the default system resolver.
-     */
-    constructor(path: String, resolver: SystemResolver = systemResolver) : this(resolver.splitPath(path), resolver) {}
-
-    /**
-     * The default constructor taking an optional resolver.
-     * It uses the PATH environment variable to look for programs.
-     *
-     * @param resolver The resolver to use. Defaults to the default system resolver.
-     */
-    constructor(resolver: SystemResolver = systemResolver) : this(System.getenv("PATH"), resolver) {}
 
     /**
      * Looks for <code>program</code> in <code>path</code> and returns the first found instance.

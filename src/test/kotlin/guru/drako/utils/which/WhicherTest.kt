@@ -14,15 +14,16 @@
 
 package guru.drako.utils.which
 
-import org.junit.Test
+import com.github.salomonbrys.kodein.Kodein
+import com.github.salomonbrys.kodein.bind
+import com.github.salomonbrys.kodein.singleton
+import io.kotlintest.matchers.shouldBe
+import io.kotlintest.matchers.shouldEqual
+import io.kotlintest.specs.StringSpec
 import java.nio.file.Path
 import java.nio.file.Paths
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
 
-class WhicherTest {
+class WhicherTest : StringSpec() {
     object TestResolver : SystemResolver {
         override fun splitPath(path: String) = path.split(':').map { Paths.get(it) }.toTypedArray()
         override fun resolve(dir: Path, file: Path) = listOf(dir.resolve(file).toAbsolutePath())
@@ -35,47 +36,44 @@ class WhicherTest {
     }
 
     companion object {
-        val testWhicher = Whicher("/usr/bin:/usr/local/bin:/home/foo/bin", TestResolver)
+        private val kodein = Kodein {
+            extend(Whicher.Companion.kodein)
+            bind<SystemResolver>(overrides = true) with singleton { TestResolver }
+            bind<String>("path_env", overrides = true) with singleton { "/usr/bin:/usr/local/bin:/home/foo/bin" }
+        }
+        val testWhicher = Whicher(kodein)
     }
 
-    @Test
-    fun split() {
-        val expected = arrayOf(
-            Paths.get("/usr/bin"),
-            Paths.get("/usr/local/bin"),
-            Paths.get("/home/foo/bin")
-        )
-        val actual = testWhicher.path
-        assertTrue(expected contentEquals actual)
-    }
+    init {
+        "split should use correct split character" {
+            testWhicher.path shouldBe arrayOf(
+                Paths.get("/usr/bin"),
+                Paths.get("/usr/local/bin"),
+                Paths.get("/home/foo/bin")
+            )
+        }
 
-    @Test
-    fun which() {
-        val expected = Paths.get("/usr/local/bin/ffmpeg")
-        val actual = testWhicher.which("ffmpeg")
-        assertEquals(expected, actual)
-    }
+        "which should return found program" {
+            val expected = Paths.get("/usr/local/bin/ffmpeg")
+            testWhicher.which("ffmpeg") shouldEqual expected
+        }
 
-    @Test
-    fun allWhiches() {
-        val expected = arrayOf(
-            Paths.get("/usr/local/bin/gcc"),
-            Paths.get("/home/foo/bin/gcc")
-        )
-        val actual = testWhicher.allWhiches("gcc")
-        assertTrue(expected contentEquals actual)
-    }
+        "allWhiches should return all found programs" {
+            testWhicher.allWhiches("gcc") shouldBe arrayOf(
+                Paths.get("/usr/local/bin/gcc"),
+                Paths.get("/home/foo/bin/gcc")
+            )
+        }
 
-    @Test
-    fun silentWhich() {
-        assertTrue(testWhicher.silentWhich("ffmpeg"))
-        assertTrue(testWhicher.silentWhich("gcc"))
-    }
+        "silentWhich should return whether the program was found" {
+            testWhicher.silentWhich("ffmpeg") shouldEqual true
+            testWhicher.silentWhich("gcc") shouldEqual true
+        }
 
-    @Test
-    fun whichNotFound() {
-        assertNull(testWhicher.which("gm"))
-        assertTrue(testWhicher.allWhiches("gm").isEmpty())
-        assertFalse(testWhicher.silentWhich("gm"))
+        "the whiches shall not find programs that are not there" {
+            testWhicher.which("gm") shouldEqual null
+            testWhicher.allWhiches("gm").isEmpty() shouldEqual true
+            testWhicher.silentWhich("gm") shouldEqual false
+        }
     }
 }
