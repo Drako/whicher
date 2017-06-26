@@ -57,7 +57,7 @@ dependencies {
 
 ## Build/Test Status
 
-Branch | Status
---- | ---
-develop | [![Build Status](https://travis-ci.org/Drako/whicher.svg?branch=develop)](https://travis-ci.org/Drako/whicher)
-master | [![Build Status](https://travis-ci.org/Drako/whicher.svg?branch=master)](https://travis-ci.org/Drako/whicher)
+Branch | Travis CI Status | AppVeyor Status
+--- | --- | ---
+develop | [![Build Status](https://travis-ci.org/Drako/whicher.svg?branch=develop)](https://travis-ci.org/Drako/whicher) | [![Build status](https://ci.appveyor.com/api/projects/status/ubl028x4m33qpukw/branch/develop?svg=true)](https://ci.appveyor.com/project/Drako/whicher/branch/develop)
+master | [![Build Status](https://travis-ci.org/Drako/whicher.svg?branch=master)](https://travis-ci.org/Drako/whicher) | [![Build status](https://ci.appveyor.com/api/projects/status/ubl028x4m33qpukw/branch/master?svg=true)](https://ci.appveyor.com/project/Drako/whicher/branch/master)
