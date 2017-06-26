@@ -26,11 +26,11 @@ import java.nio.file.Paths
 class WhicherTest : StringSpec() {
     object TestResolver : SystemResolver {
         override fun splitPath(path: String) = path.split(':').map { Paths.get(it) }.toTypedArray()
-        override fun resolve(dir: Path, file: Path) = listOf(dir.resolve(file).toAbsolutePath())
-        override fun canExecute(file: Path) = when (file.toString()) {
-            "/usr/local/bin/ffmpeg" -> true
-            "/usr/local/bin/gcc" -> true
-            "/home/foo/bin/gcc" -> true
+        override fun resolve(dir: Path, file: Path) = listOf(dir.resolve(file))
+        override fun canExecute(file: Path) = when (file) {
+            Paths.get("/usr/local/bin/ffmpeg") -> true
+            Paths.get("/usr/local/bin/gcc") -> true
+            Paths.get("/home/foo/bin/gcc") -> true
             else -> false
         }
     }
