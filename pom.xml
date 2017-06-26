@@ -62,11 +62,6 @@
             <version>2.0.3</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.github.salomonbrys.kodein</groupId>
-            <artifactId>kodein</artifactId>
-            <version>4.0.0</version>
-        </dependency>
     </dependencies>
 
     <pluginRepositories>

@@ -14,9 +14,6 @@
 
 package guru.drako.utils.which
 
-import com.github.salomonbrys.kodein.Kodein
-import com.github.salomonbrys.kodein.bind
-import com.github.salomonbrys.kodein.singleton
 import io.kotlintest.matchers.shouldBe
 import io.kotlintest.matchers.shouldEqual
 import io.kotlintest.specs.StringSpec
@@ -36,12 +33,7 @@ class WhicherTest : StringSpec() {
     }
 
     companion object {
-        private val kodein = Kodein {
-            extend(Whicher.Companion.kodein)
-            bind<SystemResolver>(overrides = true) with singleton { TestResolver }
-            bind<String>("path_env", overrides = true) with singleton { "/usr/bin:/usr/local/bin:/home/foo/bin" }
-        }
-        val testWhicher = Whicher(kodein)
+        val testWhicher = Whicher("/usr/bin:/usr/local/bin:/home/foo/bin", TestResolver)
     }
 
     init {
