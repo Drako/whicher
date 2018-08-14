@@ -43,7 +43,7 @@ some things differently.
 <dependency>
     <groupId>guru.drako.utils</groupId>
     <artifactId>whicher</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
 </dependency>
 ```
 
