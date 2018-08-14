@@ -24,6 +24,7 @@ import java.nio.file.Paths
  * @property resolver The resolver to use.
  */
 class Whicher(val path: Array<Path>, val resolver: SystemResolver) {
+
     /**
      * Static access to the default Whicher.
      *
@@ -31,10 +32,10 @@ class Whicher(val path: Array<Path>, val resolver: SystemResolver) {
      */
     companion object {
         private val systemResolver: SystemResolver =
-            if (System.getProperty("os.name").contains("windows", true))
-                WindowsResolver()
-            else
-                UnixResolver()
+                if (System.getProperty("os.name").contains("windows", true))
+                    WindowsResolver()
+                else
+                    UnixResolver()
 
         /**
          * This allows Java to access the default Whicher through the static field Whicher.system.
