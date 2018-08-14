@@ -51,7 +51,7 @@ some things differently.
 
 ```groovy
 dependencies {
-    compile 'guru.drako.utils:whicher:1.1'
+    compile 'guru.drako.utils:whicher:1.2'
 }
 ```
 
