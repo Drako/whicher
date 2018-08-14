@@ -1,0 +1,23 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SystemResolver.resolve - whicher</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">whicher</a>&nbsp;/&nbsp;<a href="../index.html">guru.drako.utils.which</a>&nbsp;/&nbsp;<a href="index.html">SystemResolver</a>&nbsp;/&nbsp;<a href="./resolve.html">resolve</a><br/>
+<br/>
+<h1>resolve</h1>
+<a name="guru.drako.utils.which.SystemResolver$resolve(java.nio.file.Path, java.nio.file.Path)"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">resolve</span><span class="symbol">(</span><span class="identifier" id="guru.drako.utils.which.SystemResolver$resolve(java.nio.file.Path, java.nio.file.Path)/dir">dir</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">, </span><span class="identifier" id="guru.drako.utils.which.SystemResolver$resolve(java.nio.file.Path, java.nio.file.Path)/file">file</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/Drako/whicher/guru/drako/utils/which/SystemResolver.kt#L39">(source)</a>
+<p>Concatenate dir and file and resolve them to an absolute path.
+This does not check for the existence of the file.</p>
+<h3>Parameters</h3>
+<p><a name="dir"></a>
+<code>dir</code> - The directory in which the file is located.</p>
+<p><a name="file"></a>
+<code>file</code> - The name of the file.</p>
+<p><strong>Return</strong><br/>
+The absolute path to the file including the filename as a list. (Can contain multiple files depending on the platform.)</p>
+</BODY>
+</HTML>

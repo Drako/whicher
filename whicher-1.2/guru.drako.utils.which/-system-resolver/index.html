@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SystemResolver - whicher</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">whicher</a>&nbsp;/&nbsp;<a href="../index.html">guru.drako.utils.which</a>&nbsp;/&nbsp;<a href="./index.html">SystemResolver</a><br/>
+<br/>
+<h1>SystemResolver</h1>
+<code><span class="keyword">interface </span><span class="identifier">SystemResolver</span></code> <a href="https://github.com/Drako/whicher/guru/drako/utils/which/SystemResolver.kt#L22">(source)</a>
+<p>Whicher backend with system dependent code.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="can-execute.html">canExecute</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">canExecute</span><span class="symbol">(</span><span class="identifier" id="guru.drako.utils.which.SystemResolver$canExecute(java.nio.file.Path)/file">file</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Check if the given file is executable.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="resolve.html">resolve</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">resolve</span><span class="symbol">(</span><span class="identifier" id="guru.drako.utils.which.SystemResolver$resolve(java.nio.file.Path, java.nio.file.Path)/dir">dir</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">, </span><span class="identifier" id="guru.drako.utils.which.SystemResolver$resolve(java.nio.file.Path, java.nio.file.Path)/file">file</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span></code>
+<p>Concatenate dir and file and resolve them to an absolute path.
+This does not check for the existence of the file.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="split-path.html">splitPath</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">splitPath</span><span class="symbol">(</span><span class="identifier" id="guru.drako.utils.which.SystemResolver$splitPath(kotlin.String)/path">path</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><a href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span></code>
+<p>Splits the given PATH variable into its parts.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
